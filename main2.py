@@ -18,9 +18,11 @@ def encrypt_file(file_path):
 
     new_filename = base64.b64encode((os.path.basename(file_path)).encode())
     new_filename = new_filename.decode()
+
+    new_filepath = str(os.path.dirname(file_path)) + "\\" + new_filename
     print(type(new_filename))
     # Write encrypted content to file
-    with open(new_filename, 'wb') as file:
+    with open(new_filepath, 'wb') as file:
         file.write(encrypted_content)
     
     os.remove(file_path)
@@ -37,7 +39,9 @@ def decrypt_file(encrypted_file_path):
     encrypted_file_path1 = base64.b64decode((os.path.basename(encrypted_file_path)).encode())
     encrypted_file_path1 = encrypted_file_path1.decode()
 
-    with open(encrypted_file_path1, 'wb') as file:  # Remove '.enc' extension
+    new_filepath = str(os.path.dirname(encrypted_file_path)) + "\\" + encrypted_file_path1
+
+    with open(new_filepath, 'wb') as file:  # Remove '.enc' extension
         file.write(decrypted_content)
     
     os.remove(encrypted_file_path)
